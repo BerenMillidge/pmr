@@ -30,4 +30,6 @@ def MH_sampler(N, q_sigma, params, distribution = unnormalised_gaussian):
 			current = proposal	#we've now moved to the proposal
 	return samples
 	#wow, this was actually really straightforward to implement. obviously it's  dumb implementation, but MH is really not so bad after all. It's all beginning to click, which is really nice!
+
+##Als, in the MH sampler we are assuming that the proposal distribution of the markov chain is symmetric so the two terms cancel, this is important as otherwise the p_ratio would be harder, but not impossible to calculate. I should add robustness to this sort of thing later, as well as a whole lot more functionality to most of these examples whenever I can... seriously
 			
