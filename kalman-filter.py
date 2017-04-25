@@ -39,3 +39,31 @@ def Kalman_step(old_mu, old_sigma, control, measurement):
 	#return our results
 	return new_mu, new_sigma
 	
+
+# The kalman filter can also be rewritten in terms of the canonical or natural representation of the gaussian. This type of filter is called the information filter, and is implemented below
+
+def get_canonical_form(mu, sigma):
+	#gets the canonical form in terms of omega, xi from the gaussian in moments form with mu sigma
+	omega  = np.linalg.inv(sigma)
+	xi = np.dot(omega, mu)
+	return omega, xi
+
+def get_moments_form(omega, xi):
+	#gets the moments form of the gaussian when given the canonical form
+	sigma = np.linalg.inv(omega)
+	mu = np.dot(sigma, xi)
+	return mu, sigma
+
+
+def implementation_filter_step(xi, omega, control, measurement):
+	om_inverse = np.linalg.inv(omega)
+	#get intermediate omega - or precision matrix
+	omega_intermediate = np.linalg.inv((np.dot(np.dot(A, omg_inverse), A.T) + R)
+	#get intermediate xi
+	xi_intermediate = np.dot(omega, (np.dot(np.dot(A, om_inverse), xi) + np.dot(B, u)))
+	#get new omega and xi
+	Q_inv = np.linalg.inv(Q)
+	new_omega = np.dot(np.dot(C.T, Q_inv, C) + omega_intermediate
+	new_xi = np.dot(np.dot(C, Q_inv), measurements) + xi_intermediate
+	return new_xi, new_omega
+	
